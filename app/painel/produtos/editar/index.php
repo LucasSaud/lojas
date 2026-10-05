@@ -839,7 +839,7 @@ function watchadd() {
 
 function kill_image(fileid) {
 
-    $(".just-ajax").load("<?php just_url(); ?>/_core/_ajax/delete_image.php?token=<?php echo user_token_generate( $_SESSION['user']['id'] ); ?>&fileid="+fileid);
+    $.post("<?php just_url(); ?>/_core/_ajax/delete_image.php", { fileid: fileid, csrf: "<?php echo csrf_token(); ?>" });
 
     watchadd();
 

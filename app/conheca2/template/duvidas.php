@@ -169,7 +169,7 @@
 
 			<div class="row">
 				<div class="col-md-6">
-					<a class="botao-acao" href="mailto:contato@reidoscript.com.br"><i class="lni lni-envelope"></i> Mande um e-mail</a>
+					<a class="botao-acao" href="mailto:contato@<?php echo $dominio; ?>"><i class="lni lni-envelope"></i> Mande um e-mail</a>
 				</div>
 				<div class="col-md-6">
 					<a class="botao-acao" href="https://wa.me/5511982889012"><i class="lni lni-whatsapp"></i> Chame no whatsapp</a>

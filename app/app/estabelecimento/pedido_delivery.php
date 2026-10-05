@@ -435,13 +435,6 @@ include($virtualpath.'/_layout/modal.php');
 
     
 
-    		// PagSeguro
-
-    		} else if ($forma_pagamento == 8) {
-
-    
-
-    			header("Location: ".$app['url']."/pagseguro?pedido=".$pedido."&forma=".$forma_pagamento."&codex=".$vpedido."&taxa=".$tpedido);
 
     
 
@@ -1060,11 +1053,6 @@ include($virtualpath.'/_layout/modal.php');
 
 													  
 
-													  <?php if( $data_content['pagamento_pagseguro'] == "1" ) { ?>
-
-													  <option value="8">PagSeguro</option>
-
-													  <?php } ?>
 
 													  
 

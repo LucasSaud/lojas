@@ -138,6 +138,23 @@ function make_login( $email,$pass,$method,$keepalive ) {
 
 }
 
+// Token anti-CSRF da sessão: as páginas o enviam nas ações feitas por POST e o destino confere.
+function csrf_token() {
+
+	if( empty( $_SESSION['csrf'] ) ) {
+		$_SESSION['csrf'] = bin2hex( random_bytes( 32 ) );
+	}
+
+	return $_SESSION['csrf'];
+
+}
+
+function csrf_confere( $token ) {
+
+	return !empty( $_SESSION['csrf'] ) && is_string( $token ) && hash_equals( $_SESSION['csrf'],$token );
+
+}
+
 // Token usado nas chamadas ajax: base64( id:senha_invertida ).
 function user_token_generate( $uid ) {
 
@@ -209,7 +226,7 @@ function recover_password_save( $key,$password ) {
 }
 
 // ---------------------------------------------------------------------
-// Permissões de acesso (redirecionam quando o acesso não é permitido)
+// Permissões de acesso (redirecionam e interrompem a página quando o acesso não é permitido)
 // ---------------------------------------------------------------------
 
 function user_login_url() {
@@ -235,21 +252,30 @@ function restrict( $level ) {
 
 }
 
-// Exige loja logada, não bloqueada e não excluída. Não interrompe a página: só define o redirecionamento.
+// Redireciona e interrompe a página. Sem interromper, o restante do script (inclusive exclusões)
+// rodava para quem não tinha acesso; o navegador só era redirecionado depois.
+function user_bloqueia( $url ) {
+
+	header( "Location: ".$url );
+	exit;
+
+}
+
+// Exige loja logada, não bloqueada e não excluída.
 function restrict_estabelecimento() {
 
 	$loja = isset( $_SESSION['estabelecimento'] ) ? $_SESSION['estabelecimento'] : array();
 
-	if( !isset( $loja['logged'] ) || $loja['logged'] != "1" ) {
-		header( "Location: ".user_login_url() );
+	if( isset( $loja['excluded'] ) && $loja['excluded'] == "1" ) {
+		user_bloqueia( get_just_url()."/painel/configuracoes/reativacao" );
 	}
 
 	if( isset( $loja['status_force'] ) && $loja['status_force'] == "1" ) {
-		header( "Location: ".get_just_url()."/painel/inativo" );
+		user_bloqueia( get_just_url()."/painel/inativo" );
 	}
 
-	if( isset( $loja['excluded'] ) && $loja['excluded'] == "1" ) {
-		header( "Location: ".get_just_url()."/painel/configuracoes/reativacao" );
+	if( !isset( $loja['logged'] ) || $loja['logged'] != "1" ) {
+		user_bloqueia( user_login_url() );
 	}
 
 }
@@ -261,7 +287,7 @@ function is_active( $eid ) {
 	$status = data_info( "estabelecimentos",$eid,"status" );
 
 	if( $status_force == "1" || $status != "1" ) {
-		header( "Location: /desativado" );
+		user_bloqueia( "/desativado" );
 	}
 
 }
@@ -270,7 +296,7 @@ function is_active( $eid ) {
 function restrict_funcionalidade( $funcionalidade ) {
 
 	if( !isset( $_SESSION['estabelecimento'][$funcionalidade] ) || $_SESSION['estabelecimento'][$funcionalidade] != "1" ) {
-		header( "Location: ".get_just_url()."/painel/inicio?msg=funcaodesativada" );
+		user_bloqueia( get_just_url()."/painel/inicio?msg=funcaodesativada" );
 	}
 
 }
@@ -279,7 +305,7 @@ function restrict_funcionalidade( $funcionalidade ) {
 function restrict_expirado() {
 
 	if( !isset( $_SESSION['estabelecimento']['status'] ) || $_SESSION['estabelecimento']['status'] != "1" ) {
-		header( "Location: ".get_just_url()."/painel/inicio?msg=inativo" );
+		user_bloqueia( get_just_url()."/painel/inicio?msg=inativo" );
 	}
 
 }
@@ -294,7 +320,7 @@ function restrict_limite( $eid ) {
 	$total = $produtos ? mysqli_num_rows( $produtos ) : 0;
 
 	if( $total >= $limite ) {
-		header( "Location: ".get_just_url()."/painel/produtos/limitado" );
+		user_bloqueia( get_just_url()."/painel/produtos/limitado" );
 	}
 
 }
@@ -770,11 +796,9 @@ function consulta_pagamento( $gateway_ref ) {
 	global $mp_acess_token;
 
 	$ch = curl_init();
-	curl_setopt( $ch, CURLOPT_URL, "https://api.mercadopago.com/merchant_orders?access_token=".$mp_acess_token."&external_reference=".$gateway_ref );
+	curl_setopt( $ch, CURLOPT_URL, "https://api.mercadopago.com/merchant_orders?access_token=".$mp_acess_token."&external_reference=".urlencode( $gateway_ref ) );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-	// ponytail: certificado não verificado, como no sistema original; ligar a verificação ao subir para produção.
-	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-	curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+	curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
 	$retorno = json_decode( curl_exec( $ch ),true );
 	curl_close( $ch );
 

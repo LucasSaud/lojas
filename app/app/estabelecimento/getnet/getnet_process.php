@@ -642,13 +642,13 @@ $response = get_object_vars($getnet->authorize($transaction));
 
 
     
-    $pedido = $_POST['pedido'];
+    $pedido = (int) $_POST['pedido'];
     $estabelecimento = $app['id'];
     $data = date('d-m-Y');
     $hora = date('H:i');
-    $valor = $_POST['total'];
-    $codigo = $response['id'];
-    $status = $response['status'];
+    $valor = mysqli_real_escape_string( $db_con, $_POST['total'] );
+    $codigo = mysqli_real_escape_string( $db_con, $response['id'] );
+    $status = mysqli_real_escape_string( $db_con, $response['status'] );
     $gateway = 'getnet';
     $status_description = $response['message'];
 

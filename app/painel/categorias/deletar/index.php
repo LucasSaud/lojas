@@ -9,7 +9,7 @@ $subtitle = "Deletar";
 
 <?php
 
-	$id = $_GET['id'];
+	$id = (int) $_GET['id'];
 	$eid = $_SESSION['estabelecimento']['id'];
 
 	// VERIFICA SE O USUARIO TEM DIREITOS

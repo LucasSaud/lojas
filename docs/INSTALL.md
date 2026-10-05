@@ -51,10 +51,13 @@ são os dois lugares com dados: inclua ambos no backup.
 
 ## Pendências conhecidas
 
-- `app/conheca2/` (landing page alternativa) e `app/app/estabelecimento/pagseguro/config.php` ainda
-  têm o domínio do fornecedor original fixo no código.
-- `_core/_ajax/delete_image.php` autoriza qualquer usuário logado a apagar mídia de qualquer loja.
-- Várias páginas montam SQL com `$_GET` sem escape (ex.: `index.php`, `cron.php`).
-- A sincronização de pagamentos chama o Mercado Pago sem verificar o certificado TLS
-  (`consulta_pagamento` em `functions/user.php` e `mp.php`).
-- `html_mail` usa `SMTPDebug = 3`, que escreve o diálogo SMTP na saída da página.
+- `administracao/estabelecimentos/editar/index.php` chama `edit_estabelecimento()` com uma lista de
+  argumentos diferente da assinatura da função (sem `$accesstoken` e com campos de PagSeguro). A edição
+  de loja pelo administrador grava valores nas colunas erradas; a edição pelo painel da loja
+  (`painel/configuracoes`) está correta.
+- Os comprovantes são gravados no banco sem escape em `mercadopago_process.php` e `getnet_process.php`:
+  um apóstrofo no nome do produto ou da loja faz essa gravação falhar.
+- Integração com o Mercado Pago validada só contra respostas simuladas; falta teste em sandbox.
+- Pontos de fidelidade: `new_pedido` sempre registra zero pontos (assim era no sistema original).
+- Dentro do contêiner, a sincronização disparada no login do lojista chama `APP_DOMAIN` por HTTP;
+  em desenvolvimento (`localhost:8080`) essa chamada falha sem consequência. Em produção funciona.

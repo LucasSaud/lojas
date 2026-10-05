@@ -60,7 +60,9 @@ function just_url_subdomain($sub) {
 
 	global $httprotocol;
 	global $just_url;
-	if($sub == "pluginthemebr") {
+	global $simple_url;
+	// O próprio domínio principal não é subdomínio de loja.
+	if($sub == explode( ".",$simple_url )[0]) {
 		$sub = "";
 	}
 	if($sub) {
@@ -742,7 +744,7 @@ function remoter($url) {
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 	curl_setopt($ch, CURLOPT_URL, $url); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 	$res = curl_exec($ch);
 
 }

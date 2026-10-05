@@ -136,7 +136,7 @@ MercadoPago\SDK::setAccessToken($mp_acess_token);
             "installments" => $assinatura_parcelas
           );
         }
-        $preference->statement_descriptor = "reidoscript";
+        $preference->statement_descriptor = substr( preg_replace( "/[^A-Za-z0-9]/","",explode( ".",$simple_url )[0] ),0,13 );
         $preference->notification_url = get_just_url()."/postback.php?token=".$external_token;
         $preference->save();
 

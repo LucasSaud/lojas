@@ -73,11 +73,11 @@
 	
 							<select id="link">
                                <option value="" selected>Selecione um Demo</option>
-                               <option value="https://demo2.reidoscript.com/">Loja Feminina</option>
-                               <option value="https://demo1.reidoscript.com/">Loja Masculina</option>
-                               <option value="https://demo6.reidoscript.com/">Doces e Tortas</option>
-                               <option value="https://demo3.reidoscript.com/">Marmitaria</option>
-                               <option value="https://demo4.reidoscript.com/">Pet Shop</option>
+                               <option value="<?php echo $proto; ?>demo2.<?php echo $dominio; ?>/">Loja Feminina</option>
+                               <option value="<?php echo $proto; ?>demo1.<?php echo $dominio; ?>/">Loja Masculina</option>
+                               <option value="<?php echo $proto; ?>demo6.<?php echo $dominio; ?>/">Doces e Tortas</option>
+                               <option value="<?php echo $proto; ?>demo3.<?php echo $dominio; ?>/">Marmitaria</option>
+                               <option value="<?php echo $proto; ?>demo4.<?php echo $dominio; ?>/">Pet Shop</option>
                             </select>
 						
 							<div class="clear"></div>

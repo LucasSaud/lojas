@@ -8,7 +8,7 @@ $subtitle = "Deletar";
 
 <?php
 
-	$id = $_GET['id'];
+	$id = (int) $_GET['id'];
 
 	if( $id )  {
 	

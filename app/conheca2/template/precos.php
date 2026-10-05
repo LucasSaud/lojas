@@ -17,7 +17,7 @@
                 </div>
                  
                 <div>
-                    <a class="botao-acao" href="https://reidoscript.com/comece" style="color:#FFFFFF; background-color:#FF9900">
+                    <a class="botao-acao" href="<?php echo $site; ?>/comece" style="color:#FFFFFF; background-color:#FF9900">
                         Crie agora o seu
     				</a>
 				</div>

@@ -19,6 +19,8 @@ if( !$insubdominio ) {
     }
 }
 
+$insubdominio = mysqli_real_escape_string( $db_con, $insubdominio );
+
 // Estabelecimento
 $query = mysqli_query( $db_con, "SELECT * FROM estabelecimentos WHERE subdominio = '$insubdominio' LIMIT 1" );
 $empresa = mysqli_fetch_array( $query );
@@ -29,11 +31,12 @@ if(is_array($data) && isset($data['endpoint'])){
     }else if((isset($_COOKIE['celcli']))AND($_COOKIE['celcli'] !='')){
         $whatsapp = $_COOKIE['celcli'];
     }
+    $whatsapp = mysqli_real_escape_string( $db_con, isset( $whatsapp ) ? $whatsapp : '' );
     if($whatsapp != ''){
-        $p256dh   = $data['keys']['p256dh'];
-        $auth     = $data['keys']['auth'];
-        $endpoint = $data['endpoint'];
-        $query = mysqli_query($db_con,"SELECT * FROM clientes WHERE whatsapp = ".$whatsapp);
+        $p256dh   = mysqli_real_escape_string( $db_con, $data['keys']['p256dh'] );
+        $auth     = mysqli_real_escape_string( $db_con, $data['keys']['auth'] );
+        $endpoint = mysqli_real_escape_string( $db_con, $data['endpoint'] );
+        $query = mysqli_query($db_con,"SELECT * FROM clientes WHERE whatsapp = '$whatsapp'");
         if(mysqli_num_rows($query) > 0){
             mysqli_query($db_con,"UPDATE clientes SET p256dh='$p256dh', auth='$auth', endpoint='$endpoint' WHERE whatsapp = '$whatsapp' ");
         }

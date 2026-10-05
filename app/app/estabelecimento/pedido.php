@@ -1185,9 +1185,6 @@ include($virtualpath.'/_layout/modal.php');
 													  
 													  
 													  
-													  <?php if( $data_content['pagamento_pagseguro'] == "1" ) { ?>
-													  <option value="8">PagSeguro</option>
-													  <?php } ?>
 													  
 													  
 													  <?php if(

@@ -1,3 +1,9 @@
+<?php
+// Endereço do site, das mesmas variáveis de ambiente usadas pelo sistema.
+$dominio = getenv( "APP_DOMAIN" ) ?: "localhost";
+$proto = getenv( "APP_HTTPS" ) === "0" ? "http://" : "https://";
+$site = $proto.$dominio;
+?>
 <!DOCTYPE html>
 
 <html>
@@ -40,13 +46,13 @@
     	
     	<meta name=copyright content="Velox Imports - Catálogo ou Cardápio Online de Produtos" />
     	
-    	<meta name=url content="https://reidoscript.com" />
+    	<meta name=url content="<?php echo $site; ?>" />
     	
     	<meta name=audience content=all />
 
         <meta name="viewport" content="width=device-width">
         
-        <meta property="og:url" content="https://reidoscript.com/" />
+        <meta property="og:url" content="<?php echo $site; ?>/" />
         
     	<meta property="og:type" content="website" />
     	
@@ -54,33 +60,33 @@
     	
     	<meta property="og:description" content="Crie seu catálogo ou cardápio online de produtos com pedidos via WhatsApp. Velox Imports!" />
     	
-    	<meta property="og:image" content="https://reidoscript.com/conheca2/img/favicon.png" />
+    	<meta property="og:image" content="<?php echo $site; ?>/conheca2/img/favicon.png" />
     	
-    	<link rel="shortcut icon" href="https://reidoscript.com/conheca2/img/favicon.png" type="image/x-icon">
+    	<link rel="shortcut icon" href="<?php echo $site; ?>/conheca2/img/favicon.png" type="image/x-icon">
 
-        <link rel="icon" href="https://reidoscript.com/conheca2/img/favicon.png" type="image/x-icon">
+        <link rel="icon" href="<?php echo $site; ?>/conheca2/img/favicon.png" type="image/x-icon">
 
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet"> 
 
-        <link rel="stylesheet" href="https://reidoscript.com/conheca2/style.css">
+        <link rel="stylesheet" href="<?php echo $site; ?>/conheca2/style.css">
 
-        <link rel="stylesheet" href="https://reidoscript.com/conheca2/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo $site; ?>/conheca2/css/bootstrap.css">
 
-        <link rel="stylesheet" href="https://reidoscript.com/conheca2/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="<?php echo $site; ?>/conheca2/css/bootstrap-theme.css">
 
-        <link rel="stylesheet" href="https://reidoscript.com/conheca2/css/animate.css">
+        <link rel="stylesheet" href="<?php echo $site; ?>/conheca2/css/animate.css">
 
-        <link rel="stylesheet" href="https://reidoscript.com/conheca2/plugins/lineicons/css/LineIcons.min.css">
+        <link rel="stylesheet" href="<?php echo $site; ?>/conheca2/plugins/lineicons/css/LineIcons.min.css">
 
-        <link rel="stylesheet" href="https://reidoscript.com/conheca2/fonts/logo/logofont.css">
+        <link rel="stylesheet" href="<?php echo $site; ?>/conheca2/fonts/logo/logofont.css">
         
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        <script src="https://reidoscript.com/conheca2/js/jquery.js"></script>
+        <script src="<?php echo $site; ?>/conheca2/js/jquery.js"></script>
 
-        <script src="https://reidoscript.com/conheca2/js/wow.min.js"></script>
+        <script src="<?php echo $site; ?>/conheca2/js/wow.min.js"></script>
 
-        <script src="https://reidoscript.com/conheca2/js/calls.js"></script>
+        <script src="<?php echo $site; ?>/conheca2/js/calls.js"></script>
 
         <script>
 

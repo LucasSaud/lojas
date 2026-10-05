@@ -5,7 +5,7 @@ global $db_con;
 
 $eid = mysqli_real_escape_string( $db_con, $_GET['eid'] );
 $token = mysqli_real_escape_string( $db_con, $_GET['token'] );
-$acao = $_GET['acao'];
+$acao = mysqli_real_escape_string( $db_con, $_GET['acao'] );
 
 if( $token == $external_token ) {
     

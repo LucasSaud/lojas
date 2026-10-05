@@ -22,7 +22,7 @@ $subtitle = "Bloquear";
 
 
 
-	$id = $_GET['id'];
+	$id = (int) $_GET['id'];
 
 	$eid = $_SESSION['estabelecimento']['id'];
 

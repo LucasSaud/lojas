@@ -25,9 +25,9 @@
 							<li><a href="#precos">Planos</a></li>
 							<li><a href="#duvidas">Dúvidas</a></li>
 							<li><a href="#contato">Contato</a></li>
-							<li><a  href="https://reidoscript.com/localizacao"> Marketplace</a></li>
-							<li><a  href="https://reidoscript.com/login/"> Login</a></li>
-							<li><a class="comece" href="https://reidoscript.com/comece"> Crie o Seu</a></li>
+							<li><a  href="<?php echo $site; ?>/localizacao"> Marketplace</a></li>
+							<li><a  href="<?php echo $site; ?>/login/"> Login</a></li>
+							<li><a class="comece" href="<?php echo $site; ?>/comece"> Crie o Seu</a></li>
 						</ul>
 					</div>
 				</nav> 
@@ -62,7 +62,7 @@
 
 			<div class="col-md-2 col-sm-2 col-xs-2">
 
-				<a href="https://reidoscript.com/comece">
+				<a href="<?php echo $site; ?>/comece">
 					<i class="lni lni-rocket pull-right"></i>
 				</a>
 
@@ -81,7 +81,7 @@
 							<li><a href="#precos">Planos</a></li>
 							<li><a href="#duvidas">Dúvidas</a></li>
 							<li><a href="#contato">Contato</a></li>
-							<li><a class="comece" href="https://reidoscript.com/comece"> Crie o Seu</a></li>
+							<li><a class="comece" href="<?php echo $site; ?>/comece"> Crie o Seu</a></li>
 						</ul>
 					</div>
 				</nav> 

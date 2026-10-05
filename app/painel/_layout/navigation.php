@@ -53,7 +53,7 @@
 			</ul>
 		</li>
 		<li><a href="<?php just_url(); ?>/logout">Sair</a></li>
-		<li class="active"><a href="https://api.whatsapp.com/send?text=Aderi a *reidoscript* para ter uma loja virtual para minha empresa integrado com o WhatsApp, cadastre-se vc tb e teste por 15 dias sem compromisso, venha conhecer essa ferramenta maravilhosa. Eu estou gostando muito, *clique no link:* https://www.pluginthemebr.com/?afiliado=<?php echo user_info('email'); ?>">Indique 1 amigo</a></li>
+		<li class="active"><a href="https://api.whatsapp.com/send?text=Aderi a *<?php global $smtp_name; echo $smtp_name; ?>* para ter uma loja virtual para minha empresa integrado com o WhatsApp, cadastre-se vc tb e teste por 15 dias sem compromisso, venha conhecer essa ferramenta maravilhosa. Eu estou gostando muito, *clique no link:* <?php echo get_just_url(); ?>/?afiliado=<?php echo user_info('email'); ?>">Indique 1 amigo</a></li>
 		<!--
 		<li class="visible-sm visible-xs"><a href="<?php echo $suport_url; ?>" target="_blank">Ajuda</a></li> -->
 		

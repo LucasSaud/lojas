@@ -46,6 +46,8 @@ $firstdomain = $firstdomain[0];
 
 
 
+  $insubdominio = mysqli_real_escape_string( $db_con, $insubdominio );
+
   // Estabelecimento
 
   if( mysqli_num_rows( mysqli_query( $db_con, "SELECT id,subdominio FROM estabelecimentos WHERE subdominio = '$insubdominio' AND excluded != '1' LIMIT 1" ) ) ) {
@@ -138,7 +140,9 @@ $firstdomain = $firstdomain[0];
 
 
 
-    // Estabelecimento
+    $insubdominio = mysqli_real_escape_string( $db_con, $insubdominio );
+
+  // Estabelecimento
 
 
 
@@ -282,23 +286,8 @@ $firstdomain = $firstdomain[0];
       
 
 
-      if( $inacao == "pagseguro" ) {
-        $chamar = $virtualpath."/pagseguro/pagseguro.php";
-      }
 
-      if( $inacao == "pagseguro_id" ) {
-        $chamar = $virtualpath."/pagseguro/pagseguro_id.php";
-      }
 
-      if( $inacao == "pagseguro_process" ) {
-        $chamar = $virtualpath."/pagseguro/pagseguro_process.php";
-      }
-      if( $inacao == "pagseguro_create_payment" ) {
-        $chamar = $virtualpath."/pagseguro/pagseguro_create_payment.php";
-      }
-      if( $inacao == "pagseguro_status" ) {
-        $chamar = $virtualpath."/pagseguro/pagseguro_status.php";
-      }
 
 
 
@@ -366,7 +355,7 @@ $firstdomain = $firstdomain[0];
 
 
 
-      if( $inacao != "index.html" && $inacao != "serviceworker.js" && $inacao != "shopping.xml" && $inacao != "pix" && $inacao != "addtohome.js" && $inacao != "manifest.webmanifest" && $inacao != "favicon.png" && $inacao != "categoria" && $inacao != "produto" && $inacao != "sacola" && $inacao != "pedido" && $inacao != "pedido_delivery" && $inacao != "pedido_balcao" && $inacao != "pedido_mesa"  && $inacao != "pedido_outros" && $inacao != "pedidosabertos" && $inacao != "pedidosfechados" && $inacao != "desativado" && $inacao != "fechado" && $inacao != "obrigado" && $inacao != "" && $inacao != "mercadopago" && $inacao != "pagseguro" && $inacao != "getnet" && $inacao != "getnet_process" && $inacao != "getnet_status" && $inacao != "pagseguro_id" && $inacao != "pagseguro_process" && $inacao != "pagseguro_create_payment" && $inacao != "pagseguro_status" && $inacao != "mercadopago_process" && $inacao != "mercadopago_status") {
+      if( $inacao != "index.html" && $inacao != "serviceworker.js" && $inacao != "shopping.xml" && $inacao != "pix" && $inacao != "addtohome.js" && $inacao != "manifest.webmanifest" && $inacao != "favicon.png" && $inacao != "categoria" && $inacao != "produto" && $inacao != "sacola" && $inacao != "pedido" && $inacao != "pedido_delivery" && $inacao != "pedido_balcao" && $inacao != "pedido_mesa"  && $inacao != "pedido_outros" && $inacao != "pedidosabertos" && $inacao != "pedidosfechados" && $inacao != "desativado" && $inacao != "fechado" && $inacao != "obrigado" && $inacao != "" && $inacao != "mercadopago" && $inacao != "getnet" && $inacao != "getnet_process" && $inacao != "getnet_status" && $inacao != "mercadopago_process" && $inacao != "mercadopago_status") {
 
         $chamar = $virtualpath."/404.php";
 

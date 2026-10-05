@@ -911,8 +911,6 @@ function html_mail( $to,$subject,$msg ) {
 
 	$mail = new PHPMailer;
 	$mail->isSMTP();
-	// Nível 3 escreve o diálogo SMTP na saída da página, como no sistema original.
-	$mail->SMTPDebug = 3;
 	$mail->CharSet = "UTF-8";
 	$mail->Host = "mail.".( isset( $dominio[1] ) ? $dominio[1] : "" );
 	$mail->Port = 587;

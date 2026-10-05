@@ -152,8 +152,6 @@ $filtered = $_GET['filtered'];
 						curl_setopt($ch, CURLOPT_URL, $url);
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 						curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-						curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 						$response = curl_exec($ch);
 						curl_close($ch);
 
@@ -176,8 +174,6 @@ $filtered = $_GET['filtered'];
 								curl_setopt($ch, CURLOPT_URL, $place_id_url);
 								curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 								curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-								curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-								curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 								$response_detail = curl_exec($ch);
 								curl_close($ch);
 

@@ -22,12 +22,12 @@ include('../_layout/modal.php');
 $sqlnp = "(SELECT count(*) FROM pedidos p WHERE p.whatsapp = cl.whatsapp and rel_estabelecimentos_id = cl.id_estabelecimento)";
 
 if(isset($_GET['whatsapp'])){
-    $numero = $_GET['whatsapp'];
+    $numero = mysqli_real_escape_string( $db_con, $_GET['whatsapp'] );
     $sqlwhatsapp = " AND whatsapp like '%$numero%' ";
 }
 
 if(isset($_GET['nome'])){
-    $nome = $_GET['nome'];
+    $nome = mysqli_real_escape_string( $db_con, $_GET['nome'] );
     $sqlnome = " AND nome like '%$nome%' ";
 }
 
@@ -38,7 +38,8 @@ if(isset($_GET['ordem'])){
         
         $storder = $_GET['order'];
         
-        $order = $_GET['ordem'];
+        // Só as ordenações que a tela oferece.
+        $order = in_array( $_GET['ordem'], array( 'nome','qtdpontos','npedidos','datadeinclusao','whatsapp','id' ) ) ? $_GET['ordem'] : 'nome';
         if($order == 'qtdpontos'){
             $order .= ' DESC';
         }

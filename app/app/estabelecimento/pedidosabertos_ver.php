@@ -78,7 +78,7 @@ header("Location: ".$app['url']."");
 					<div class="obrigado">
 
 						<?php
-							$query = "SELECT * FROM pedidos WHERE whatsapp = '".$_COOKIE['celcli']."' AND rel_estabelecimentos_id = '$app_id' AND (status = '1' OR status = '4' OR status = '5' OR status = '6') ORDER BY id DESC LIMIT 3";
+							$query = "SELECT * FROM pedidos WHERE whatsapp = '".mysqli_real_escape_string( $db_con, isset( $_COOKIE['celcli'] ) ? $_COOKIE['celcli'] : '' )."' AND rel_estabelecimentos_id = '$app_id' AND (status = '1' OR status = '4' OR status = '5' OR status = '6') ORDER BY id DESC LIMIT 3";
 							$sql = mysqli_query( $db_con, $query );
                             while ( $data = mysqli_fetch_array( $sql ) ) {
                                 

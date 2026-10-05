@@ -33,7 +33,7 @@
 
 				<div class="plano">
 
-					<a href="https://reidoscript.com/comece">
+					<a href="<?php echo $site; ?>/comece">
 
 						<span class="titulo">Plano Trimestral</span>
 						<span class="subtitulo">Para dar um pontapé no seu negócio.</span>
@@ -65,7 +65,7 @@
 
 				<div class="plano plano-destaque">
 
-					<a href="https://reidoscript.com/comece">
+					<a href="<?php echo $site; ?>/comece">
 
 						<span class="titulo">Plano Anual</span>
 						<span class="subtitulo">O mais completo, pelo melhor preço do mercado.</span>
@@ -99,7 +99,7 @@
 
 				<div class="plano">
 
-					<a href="https://reidoscript.com/comece">
+					<a href="<?php echo $site; ?>/comece">
 
 						<span class="titulo">Plano Semestral</span>
 						<span class="subtitulo">O plano para para quem gosta de detalhes.</span>
@@ -146,7 +146,7 @@
 
 				      <div class="plano">
 
-				        <a href="https://reidoscript.com/comece">
+				        <a href="<?php echo $site; ?>/comece">
 
 				          <span class="titulo">Plano Trimestral</span>
 				          <span class="subtitulo">Para dar um pontapé no seu negócio.</span>
@@ -178,7 +178,7 @@
 
 				      <div class="plano">
 
-				        <a href="https://reidoscript.com/comece">
+				        <a href="<?php echo $site; ?>/comece">
 
 				          <span class="titulo">Plano Anual</span>
 				          <span class="subtitulo">O mais completo, pelo melhor preço do mercado.</span>
@@ -212,7 +212,7 @@
 
 				      <div class="plano">
 
-				        <a href="https://reidoscript.com/comece">
+				        <a href="<?php echo $site; ?>/comece">
 
 				          <span class="titulo">Plano Semestral</span>
 				          <span class="subtitulo">O plano para para quem gosta de detalhes.</span>

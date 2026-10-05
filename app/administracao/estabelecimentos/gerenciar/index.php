@@ -8,7 +8,7 @@ $subtitle = "Gerenciar";
 
 <?php
 
-	$id = $_GET['id'];
+	$id = (int) $_GET['id'];
 	$id = mysqli_real_escape_string( $db_con, $_GET['id'] );
 
 	$queryestabelecimento = mysqli_query( $db_con, "SELECT * FROM estabelecimentos WHERE id = '$id' LIMIT 1");

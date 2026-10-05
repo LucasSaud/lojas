@@ -1,40 +1,32 @@
-<?php 
-include('../_includes/config.php'); 
-session_start();
+<?php
+
+// Apaga uma imagem da galeria de um produto.
+// Administrador apaga qualquer uma; a loja só apaga as suas. Quem autoriza é a sessão,
+// e a chamada precisa trazer o token anti-CSRF (csrf_token()).
+
+include('../_includes/config.php');
 
 global $db_con;
+global $rootpath;
 
-$token = mysqli_real_escape_string( $db_con, $_GET['token'] );
-$fileid = mysqli_real_escape_string( $db_con, $_GET['fileid'] );
-$owner = data_info("midia",$fileid,"rel_estabelecimentos_id");
-
-$token = base64_decode($token);
-$token = explode(":", $token);
-
-$token_id = $token[0];
-$token_pass = strrev( $token[1] );
-
-$level = user_token_info( $token_id,$token_pass,"level" );
-
-// Validate
-
-$cando = 0;
-
-if( $level == "1" OR user_token_info('rel_estabelecimentos_id') == $owner ) {
-	$cando = 1;
+// Só por POST e com o token da sessão: um link ou imagem em outro site não consegue disparar a exclusão.
+if( $_SERVER['REQUEST_METHOD'] !== 'POST' || !csrf_confere( isset( $_POST['csrf'] ) ? $_POST['csrf'] : null ) ) {
+	http_response_code( 403 );
+	exit;
 }
 
-if( $cando ) {
-	$quicksql = mysqli_query( $db_con, "SELECT * FROM midia WHERE id = '$fileid' ORDER BY id DESC LIMIT 999" );
-	while( $quickdata = mysqli_fetch_array( $quicksql ) ) {
-		
-		$mid = $quickdata['id'];
-		$midia = $quickdata['url'];
+$fileid = (int) ( isset( $_POST['fileid'] ) ? $_POST['fileid'] : 0 );
 
-		unlink( $rootpath."/_core/_uploads/".$midia );
-		mysqli_query( $db_con, "DELETE FROM midia WHERE id = '$mid'");
+$logado = isset( $_SESSION['user']['logged'] ) && $_SESSION['user']['logged'] == "1";
+$admin = $logado && $_SESSION['user']['level'] == "1";
+$loja = isset( $_SESSION['estabelecimento']['id'] ) ? $_SESSION['estabelecimento']['id'] : "";
 
-	}
+$midia = mysqli_fetch_array( mysqli_query( $db_con, "SELECT * FROM midia WHERE id = '$fileid' LIMIT 1" ) );
+
+if( !$logado || !$midia || !( $admin || ( $loja && $midia['rel_estabelecimentos_id'] == $loja ) ) ) {
+	http_response_code( 403 );
+	exit;
 }
 
-?>
+@unlink( $rootpath."/_core/_uploads/".$midia['url'] );
+mysqli_query( $db_con, "DELETE FROM midia WHERE id = '$fileid'" );

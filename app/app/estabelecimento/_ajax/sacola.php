@@ -7,13 +7,13 @@ $eid = mysqli_real_escape_string($db_con, $_POST['eid']);
 $pid = mysqli_real_escape_string($db_con, $_POST['produto']);
 $produto = mysqli_real_escape_string($db_con, $_POST['produto']);
 if (isset($_POST['produtoId'])) {
-	$produtoId = $_POST['produtoId'];
+	$produtoId = (int) $_POST['produtoId'];
 }
 if (isset($_POST['variacaoId'])) {
-	$variacaoId = $_POST['variacaoId'];
+	$variacaoId = (int) $_POST['variacaoId'];
 }
 if (isset($_POST['variacaoProdutoId'])) {
-	$variacaoProdutoId = $_POST['variacaoProdutoId'];
+	$variacaoProdutoId = (int) $_POST['variacaoProdutoId'];
 }
 $parsedata = parse_str(urldecode($_POST['data']), $data);
 $quantidade = $data['quantidade'];

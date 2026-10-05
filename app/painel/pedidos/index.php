@@ -14,7 +14,7 @@ $eid = $_SESSION['estabelecimento']['id'];
 
 if(isset($_POST['acao'])){
     
-    $pedido = $_POST['ped'];
+    $pedido = (int) $_POST['ped'];
     $status = $_POST['sta'];
     
     $arrayStatus = array("1","2","3","4","5","6","7");

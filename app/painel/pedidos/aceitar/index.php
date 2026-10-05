@@ -10,7 +10,7 @@ $subtitle = "Bloquear";
 
 <?php
 
-	$id = $_GET['id'];
+	$id = (int) $_GET['id'];
 	$eid = $_SESSION['estabelecimento']['id'];
 	$nome = $_GET['nome'];
     $whats = $_GET['whats'];
