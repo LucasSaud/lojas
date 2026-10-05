@@ -1,6 +1,7 @@
 <?php
 include('../../../_core/_includes/config.php');
 restrict('3');
+csrf_exige();
 $subtitle = "Deletar";
 ?>
 

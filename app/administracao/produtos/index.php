@@ -330,7 +330,7 @@ if( !$pagina OR $pagina > $total_paginas OR !is_numeric($pagina) ) {
 										<div class="form-actions pull-right">
 											<a class="color-white" href="<?php admin_url(); ?>/produtos/copiar?id=<?php echo $data['id']; ?>" title="Editar"><i class="lni lni-files"></i></a>
 											<a class="color-yellow" href="<?php admin_url(); ?>/produtos/editar?id=<?php echo $data['id']; ?>" title="Editar"><i class="lni lni-pencil"></i></a>
-											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este produto?')) document.location = '<?php admin_url(); ?>/produtos/deletar/?id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
+											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este produto?')) document.location = '<?php admin_url(); ?>/produtos/deletar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
 										</div>
                                     </div>
                                     <div class="fake-table-break"></div>

@@ -275,7 +275,7 @@ if( !$pagina OR $pagina > $total_paginas OR !is_numeric($pagina) ) {
 											<a class="color-white" href="<?php admin_url(); ?>/assinaturas/editar?id=<?php echo $data['rel_assinaturas_id']; ?>" title="Ver assinatura"><i class="lni lni-star"></i></a>
 											<?php } ?>
 											<a class="color-yellow" href="<?php admin_url(); ?>/vouchers/editar?id=<?php echo $data['id']; ?>" title="Editar"><i class="lni lni-pencil"></i></a>
-											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este voucher? A assinatura associada tambem sera removida!')) document.location = '<?php admin_url(); ?>/vouchers/deletar/?id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
+											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este voucher? A assinatura associada tambem sera removida!')) document.location = '<?php admin_url(); ?>/vouchers/deletar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
 										</div>
                                     </div>
                                     <div class="fake-table-break"></div>

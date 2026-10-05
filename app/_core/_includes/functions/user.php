@@ -9,6 +9,13 @@
 // =====================================================================
 
 if( session_status() == PHP_SESSION_NONE ) {
+	// SameSite=Lax: o navegador não envia o cookie de sessão em formulários (POST) vindos de outros sites.
+	session_set_cookie_params( array(
+		"path" => "/",
+		"httponly" => true,
+		"samesite" => "Lax",
+		"secure" => isset( $GLOBALS['httprotocol'] ) && $GLOBALS['httprotocol'] == "https://",
+	) );
 	session_start();
 }
 
@@ -146,6 +153,18 @@ function csrf_token() {
 	}
 
 	return $_SESSION['csrf'];
+
+}
+
+// Para páginas que alteram dados ao serem abertas (excluir, ativar, bloquear...):
+// sem o token da sessão na URL ou no formulário, a página para aqui.
+function csrf_exige() {
+
+	if( !csrf_confere( isset( $_REQUEST['csrf'] ) ? $_REQUEST['csrf'] : null ) ) {
+		http_response_code( 403 );
+		echo "Ação não autorizada. Volte à página anterior e tente novamente.";
+		exit;
+	}
 
 }
 

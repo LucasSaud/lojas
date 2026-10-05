@@ -333,18 +333,18 @@ if( !$pagina OR $pagina > $total_paginas OR !is_numeric($pagina) ) {
 										<div class="form-actions pull-right">
 										    
 										    <?php if($data['status'] == 1 ) { ?>
-										    <a class="color-red" href="<?php panel_url(); ?>/produtos/desativar/?id=<?php echo $data['id']; ?>" title="Desativar"><i class="lni lni-cross-circle"></i></a>
+										    <a class="color-red" href="<?php panel_url(); ?>/produtos/desativar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>" title="Desativar"><i class="lni lni-cross-circle"></i></a>
 										    <?php } ?>
 										    
 										    <?php if($data['status'] == 2 ) { ?>
-										    <a class="color-green" href="<?php panel_url(); ?>/produtos/ativar/?id=<?php echo $data['id']; ?>" title="Ativar"><i class="lni lni-checkmark-circle"></i></a>
+										    <a class="color-green" href="<?php panel_url(); ?>/produtos/ativar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>" title="Ativar"><i class="lni lni-checkmark-circle"></i></a>
 										    <?php } ?>
 										    
 										    
 										    
 											<a class="color-white" href="<?php panel_url(); ?>/produtos/copiar?id=<?php echo $data['id']; ?>" title="Copiar"><i class="lni lni-files"></i></a>
 											<a class="color-yellow" href="<?php panel_url(); ?>/produtos/editar?id=<?php echo $data['id']; ?>" title="Editar"><i class="lni lni-pencil"></i></a>
-											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este produto?')) document.location = '<?php panel_url(); ?>/produtos/deletar/?id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
+											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este produto?')) document.location = '<?php panel_url(); ?>/produtos/deletar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
 										</div>
                                     </div>
                                     <div class="fake-table-break"></div>

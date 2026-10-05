@@ -2,6 +2,7 @@
 include('../../../_core/_includes/config.php');
 restrict_estabelecimento();
 restrict_funcionalidade('funcionalidade_banners');
+csrf_exige();
 $subtitle = "Deletar";
 ?>
 

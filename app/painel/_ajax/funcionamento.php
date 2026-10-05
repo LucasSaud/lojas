@@ -1,11 +1,10 @@
 <?php 
 include('../../_core/_includes/config.php');
-$token = mysqli_real_escape_string( $db_con, $_GET['token'] );
 $eid = mysqli_real_escape_string( $db_con, $_GET['eid'] );
-session_id($token);
+csrf_exige();
 ?>
 
-<?php if( $_SESSION['estabelecimento']['id'] == $eid ) { ?>
+<?php if( $eid && $_SESSION['estabelecimento']['id'] == $eid ) { ?>
 
 	<?php
 	if( data_info( "estabelecimentos", $_SESSION['estabelecimento']['id'], "funcionamento" ) == "1" ) { 

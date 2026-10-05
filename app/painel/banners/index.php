@@ -249,7 +249,7 @@ if( !$pagina OR $pagina > $total_paginas OR !is_numeric($pagina) ) {
                                     <div class="fake-table-data">
 										<div class="form-actions pull-right">
 											<a class="color-yellow" href="<?php panel_url(); ?>/banners/editar?id=<?php echo $data['id']; ?>" title="Editar"><i class="lni lni-pencil"></i></a>
-											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este banner?')) document.location = '<?php panel_url(); ?>/banners/deletar/?id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
+											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este banner?')) document.location = '<?php panel_url(); ?>/banners/deletar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
 										</div>
                                     </div>
                                     <div class="fake-table-break"></div>

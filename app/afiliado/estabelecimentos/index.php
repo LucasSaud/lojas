@@ -232,11 +232,11 @@ if( !$pagina OR $pagina > $total_paginas OR !is_numeric($pagina) ) {
 											<a target="_blank" class="color-white" href="<?php afiliado_url(); ?>/estabelecimentos/gerenciar?id=<?php echo $data['id']; ?>" title="Gerenciar"><i class="lni lni-lock"></i></a>
 											
 											<?php if($data['status'] == 1) { ?>
-											<a class="color-yellow" onclick="if(confirm('Tem certeza que deseja desativar este estabelecimento?')) document.location = '<?php afiliado_url(); ?>/estabelecimentos/bloquear/?id=<?php echo $data['id']; ?>'" href="#" title="Desativar Estabelecimento"><i class="lni lni-close"></i></a>
+											<a class="color-yellow" onclick="if(confirm('Tem certeza que deseja desativar este estabelecimento?')) document.location = '<?php afiliado_url(); ?>/estabelecimentos/bloquear/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>'" href="#" title="Desativar Estabelecimento"><i class="lni lni-close"></i></a>
 											<?php } else { ?>
-											<a class="color-yellow" onclick="if(confirm('Tem certeza que deseja ativar este estabelecimento?')) document.location = '<?php afiliado_url(); ?>/estabelecimentos/ativar/?id=<?php echo $data['id']; ?>'" href="#" title="Ativar Estabelecimento"><i class="lni lni-checkmark"></i></a>
+											<a class="color-yellow" onclick="if(confirm('Tem certeza que deseja ativar este estabelecimento?')) document.location = '<?php afiliado_url(); ?>/estabelecimentos/ativar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>'" href="#" title="Ativar Estabelecimento"><i class="lni lni-checkmark"></i></a>
 											<?php } ?>
-											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este estabelecimento?')) document.location = '<?php afiliado_url(); ?>/estabelecimentos/deletar/?id=<?php echo $data['id']; ?>&mode=<?php echo $_GET['mode']; ?>'" href="#" title="Ed"><i class="lni lni-trash"></i></a>
+											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este estabelecimento?')) document.location = '<?php afiliado_url(); ?>/estabelecimentos/deletar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>&mode=<?php echo $_GET['mode']; ?>'" href="#" title="Ed"><i class="lni lni-trash"></i></a>
 										</div>
                                     </div>
                                     <div class="fake-table-break"></div>

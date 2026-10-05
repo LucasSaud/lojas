@@ -1,6 +1,7 @@
 <?php
 include('../../../_core/_includes/config.php');
 restrict('1');
+csrf_exige();
 $subtitle = "Deletar usuário";
 ?>
 
