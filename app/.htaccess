@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+# <loja>.APP_DOMAIN -> index.php?insubdominio=<loja>
+RewriteCond %{HTTP_HOST}#%{ENV:APP_DOMAIN} ^([a-z0-9-]+)\.(.+)#\2$ [NC]
+RewriteRule (.*) index.php?insubdominio=%1&inrouter=$1 [NC,L,QSA]
+ErrorDocument 404 /404.php

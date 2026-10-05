@@ -1,0 +1,2 @@
+rel_estabelecimentos_id,rel_categorias_id,destaque,ref,codigo_pdv,pontos,permitir_troca,pontos_item,nome,descricao,valor,oferta,valor_promocional,variacao,visible,status,created,last_modified,statusp,integrado,pesofrete,alturafrete,largurafrete,comprimentofrete,diametrofrete,estoque,posicao
+IGNORAR,61,/2020/07/2123220720ac6cbegchh.jpg,REF-13,NULL,0,0,0,Produto Nome,Descrição do Produto,120.00,1,99.00,null,1,1,IGNORAR,IGNORAR,1,NULL,NULL,NULL,NULL,NULL,NULL,1,0

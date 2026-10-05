@@ -1,0 +1,10 @@
+.env
+.DS_Store
+Thumbs.db
+error_log
+*.log
+
+# Uploads ficam fora do git (volume persistente); só a proteção da pasta é versionada.
+storage/uploads/*
+!storage/uploads/.htaccess
+!storage/uploads/index.php
