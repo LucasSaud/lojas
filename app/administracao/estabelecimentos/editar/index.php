@@ -147,10 +147,6 @@ global $simple_url;
         $pagamento_mercadopago_public = mysqli_real_escape_string( $db_con, $_POST['pagamento_mercadopago_public'] );
         $pagamento_mercadopago_secret = mysqli_real_escape_string( $db_con, $_POST['pagamento_mercadopago_secret'] );
 
-        $pagamento_pagseguro = mysqli_real_escape_string( $db_con, $_POST['pagamento_pagseguro'] );
-        $pagamento_pagseguro_sandbox = mysqli_real_escape_string( $db_con, $_POST['pagamento_pagseguro_sandbox'] );
-        $pagamento_pagseguro_email = mysqli_real_escape_string( $db_con, $_POST['pagamento_pagseguro_email'] );
-        $pagamento_pagseguro_token = mysqli_real_escape_string( $db_con, $_POST['pagamento_pagseguro_token'] );
 
         $pagamento_getnet = mysqli_real_escape_string( $db_con, $_POST['pagamento_getnet'] );
         $pagamento_getnet_sandbox = mysqli_real_escape_string( $db_con, $_POST['pagamento_getnet_sandbox'] );
@@ -782,126 +778,73 @@ global $simple_url;
 
 
 
-      if( edit_estabelecimento( 
-
+      if( edit_estabelecimento(
+            // Na ordem da assinatura em functions/data.php. Esta tela não edita o access token nem
+            // os dados de PIX da loja: o token vazio mantém o atual e o PIX é repassado como está.
+            "",
             $id,
-
             $nome,
-
             $descricao,
-
             $segmento,
-
             $estado,
-
             $cidade,
-
             $subdominio,
-
             $perfil,
-
             $capa,
-
             $cor,
-
-			$exibicao,
-
+            $exibicao,
             $pedido_minimo,
-
             $pagamento_dinheiro,
-
             $pagamento_cartao_debito,
-
             $pagamento_cartao_debito_bandeiras,
-
             $pagamento_cartao_credito,
-
             $pagamento_cartao_credito_bandeiras,
-
             $pagamento_mercadopago,
             $pagamento_mercadopago_sandbox,
             $pagamento_mercadopago_public,
             $pagamento_mercadopago_secret,
-
-            $pagamento_pagseguro,
-            $pagamento_pagseguro_sandbox,
-            $pagamento_pagseguro_email,
-            $pagamento_pagseguro_token,
-
             $pagamento_getnet,
             $pagamento_getnet_sandbox,
             $pagamento_getnet_client_id,
             $pagamento_getnet_client_secret,
             $pagamento_getnet_seller_id,
-            
-            $pagamento_mercadopago_PIX,
-            $pagamento_mercadopago_pix_token,
-
+            mysqli_real_escape_string( $db_con, data_info( "estabelecimentos",$id,"pagamento_pix_mp" ) ),
+            $pagamento_pix,
+            mysqli_real_escape_string( $db_con, data_info( "estabelecimentos",$id,"chave_pix" ) ),
+            mysqli_real_escape_string( $db_con, data_info( "estabelecimentos",$id,"beneficiario_pix" ) ),
             $endereco_cep,
-
             $endereco_numero,
-
             $endereco_bairro,
-
             $endereco_rua,
-
             $endereco_complemento,
-
             $endereco_referencia,
-
             $horario_funcionamento,
-
             $entrega_retirada,
-
             $entrega_entrega,
-
             $entrega_entrega_tipo,
-
             $entrega_entrega_valor,
-
             $entrega_delivery,
-
             $entrega_balcao,
-
             $entrega_mesa,
-
             $entrega_outros,
-
             $entrega_outros_nome,
-
             $contato_whatsapp,
-
             $contato_email,
-
             $contato_instagram,
-
             $contato_facebook,
-
             $contato_youtube,
-
             $estatisticas_analytics,
-
             $estatisticas_pixel,
-
             $html,
-
             $responsavel_nome,
-
             $responsavel_nascimento,
-
             $responsavel_documento_tipo,
-
             $responsavel_documento,
-
             $email,
-
             $pass,
-
             $status_force,
-
             $excluded
-
-       ) ) {
+      ) ) {
 
 
 
@@ -1991,7 +1934,7 @@ global $simple_url;
 
                                         <label>Secret key:</label>
 
-                                        <input type="text" name="pagamento_mercadopago_secret"  value="<?php echo htmlclean($dataestabelecimento['pagamento_mercadopago_secret'] ); ?>">
+                                        <input type="text" name="pagamento_mercadopago_secret" value="" autocomplete="off" placeholder="<?php echo notnull( $dataestabelecimento['pagamento_mercadopago_secret'] ) ? 'Preenchido – digite para trocar' : 'Não preenchido'; ?>">
 
                                     </div>
 
@@ -2011,71 +1954,7 @@ global $simple_url;
 
 
 
-                     <!--Pagseguro INICIO-->
-
-                     <div class="row" style="margin-left:0px;margin-right:0px">
-
-                      <div class="col-md-12">
-
-                        <div class="form-field-default">
-
-                            <label>O estabelecimento aceita pagamento via Pagseguro?</label>
-
-                            <div class="form-field-radio">
-
-                              <input type="radio" name="pagamento_pagseguro" value="1" element-show=".elemento-pagseguro" <?php if( $dataestabelecimento['pagamento_pagseguro'] == 1 ){ echo 'CHECKED'; }; ?>> Sim
-
-                            </div>
-
-                            <div class="form-field-radio">
-
-                              <input type="radio" name="pagamento_pagseguro" value="2" element-hide=".elemento-pagseguro" <?php if( $dataestabelecimento['pagamento_pagseguro'] == 2 OR !$dataestabelecimento['pagamento_pagseguro'] ){ echo 'CHECKED'; }; ?>> Não
-
-                            </div>
-
-                            <div class="clear"></div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                        <!--Pagseguro Inputs INICIO-->
-
-                    <div style="margin-left:0px;margin-right:0px" class="row elemento-pagseguro <?php if( $dataestabelecimento['pagamento_pagseguro'] == "2" ){ echo 'elemento-oculto'; }; ?>">
-
-                         <div class="col-md-12">
-
-                            <div class="form-field-default">  
-
-                                        <label>Modo Teste (Sandbox):</label>
-                                        <select  name="pagamento_pagseguro_sandbox">
-
-
-                                              <option <?php if ($dataestabelecimento['pagamento_pagseguro_sandbox'] == 1) { echo "selected";}?> value="1" >Sim</option>
-                                              <option <?php if ($dataestabelecimento['pagamento_pagseguro_sandbox'] == 0) { echo "selected";}?> value="0" >Não</option>
-                                        </select>
-
-                                        <label>Email Pagseguro:</label>
-
-                                        <input type="text" name="pagamento_pagseguro_email" value="<?php echo htmlclean($dataestabelecimento['pagamento_pagseguro_email'] ); ?>">
-
-                                        <label>Token Pagseguro:</label>
-
-                                        <input type="text" name="pagamento_pagseguro_token"  value="<?php echo htmlclean($dataestabelecimento['pagamento_pagseguro_token'] ); ?>">
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                      
-
-                        <!--Pagseguro Inputs FIM-->
-
-                    <!--Pagseguro FIM-->
+                     
 
                     
 
@@ -2135,7 +2014,7 @@ global $simple_url;
                                         <input type="text" name="pagamento_getnet_client_id" value="<?php echo htmlclean($dataestabelecimento['pagamento_getnet_client_id'] ); ?>">
 
                                         <label>Client Secret:</label>
-                                        <input type="text" name="pagamento_getnet_client_secret"  value="<?php echo htmlclean($dataestabelecimento['pagamento_getnet_client_secret'] ); ?>">
+                                        <input type="text" name="pagamento_getnet_client_secret" value="" autocomplete="off" placeholder="<?php echo notnull( $dataestabelecimento['pagamento_getnet_client_secret'] ) ? 'Preenchido – digite para trocar' : 'Não preenchido'; ?>">
 
                                         <label>Seller ID:</label>
                                         <input type="text" name="pagamento_getnet_seller_id"  value="<?php echo htmlclean($dataestabelecimento['pagamento_getnet_seller_id'] ); ?>">

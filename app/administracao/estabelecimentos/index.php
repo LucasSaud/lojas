@@ -359,7 +359,7 @@ if( !$pagina OR $pagina > $total_paginas OR !is_numeric($pagina) ) {
 											<a target="_blank" class="color-white" href="<?php admin_url(); ?>/estabelecimentos/gerenciar?id=<?php echo $data['id']; ?>" title="Gerenciar"><i class="lni lni-lock"></i></a>
 											<a class="color-yellow" href="<?php admin_url(); ?>/assinaturas?estabelecimento_id=<?php echo $data['id']; ?>&filtered=1" title="Assinaturas"><i class="lni lni-star"></i></a>
 											<a target="_blank" class="color-white" href="<?php admin_url(); ?>/estabelecimentos/editar?id=<?php echo $data['id']; ?>" title="Editar"><i class="lni lni-pencil"></i></a>
-											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este estabelecimento?')) document.location = '<?php admin_url(); ?>/estabelecimentos/deletar/?csrf=<?php echo csrf_token(); ?>&id=<?php echo $data['id']; ?>&mode=<?php echo $_GET['mode']; ?>'" href="#" title="Ed"><i class="lni lni-trash"></i></a>
+											<a class="color-red" onclick="if(confirm('Tem certeza que deseja remover este estabelecimento?')) acaoPost('<?php admin_url(); ?>/estabelecimentos/deletar/?id=<?php echo $data['id']; ?>&mode=<?php echo htmlclean( $_GET['mode'] ); ?>')" href="#" title="Ed"><i class="lni lni-trash"></i></a>
 										</div>
                                     </div>
                                     <div class="fake-table-break"></div>

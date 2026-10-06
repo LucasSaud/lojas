@@ -749,4 +749,54 @@ function remoter($url) {
 
 }
 
+// Credenciais das lojas (tokens de pagamento) ficam cifradas no banco com a chave APP_KEY do ambiente.
+// Formato gravado: "enc:v1:" + base64( nonce + texto cifrado ).
+
+function segredo_chave() {
+
+	$chave = base64_decode( (string) getenv( "APP_KEY" ),true );
+
+	return $chave !== false && strlen( $chave ) == SODIUM_CRYPTO_SECRETBOX_KEYBYTES ? $chave : null;
+
+}
+
+// Cifra para gravar. Vazio continua vazio. Sem APP_KEY válida, interrompe: nunca grava segredo em texto puro.
+function segredo_cifra( $texto ) {
+
+	if( !notnull( $texto ) ) {
+		return "";
+	}
+
+	$chave = segredo_chave();
+	if( !$chave ) {
+		http_response_code( 500 );
+		die( "APP_KEY ausente ou inválida: não é possível gravar credenciais." );
+	}
+
+	$nonce = random_bytes( SODIUM_CRYPTO_SECRETBOX_NONCEBYTES );
+
+	return "enc:v1:".base64_encode( $nonce.sodium_crypto_secretbox( $texto,$nonce,$chave ) );
+
+}
+
+// Abre para usar. Valor sem o prefixo (gravado antes da criptografia) é devolvido como está.
+// Devolve "" se a chave não confere ou o valor está corrompido.
+function segredo_abre( $valor ) {
+
+	if( strpos( (string) $valor,"enc:v1:" ) !== 0 ) {
+		return $valor;
+	}
+
+	$chave = segredo_chave();
+	$dados = base64_decode( substr( $valor,7 ),true );
+	if( !$chave || $dados === false || strlen( $dados ) <= SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ) {
+		return "";
+	}
+
+	$texto = sodium_crypto_secretbox_open( substr( $dados,SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ),substr( $dados,0,SODIUM_CRYPTO_SECRETBOX_NONCEBYTES ),$chave );
+
+	return $texto === false ? "" : $texto;
+
+}
+
 ?>

@@ -19,15 +19,48 @@ include('../_layout/modal.php');
 
 global $db_con;
 
-// $lat = $_POST['latitude'];
-// $lng = $_POST['longitude'];
-$radius = "10";
-//$key = "AIzaSyBXQ9nkYb95_z-Vp1D9pE6Yqy574q943To";
+// Chave da plataforma para a Places API do Google (GOOGLE_PLACES_KEY no .env).
+$key = env( "GOOGLE_PLACES_KEY" );
+$location = isset( $_GET['location'] ) ? trim( $_GET['location'] ) : "";
+$type = isset( $_GET['type'] ) ? trim( $_GET['type'] ) : "";
+$filtered = isset( $_GET['filtered'] ) ? $_GET['filtered'] : "";
 
-$key = "AIzaSyBBgSyzJd2f959iHP5IU3cWLBbn2kO8gZw";
-$location = $_GET['location'];
-$type = $_GET['type'];
-$filtered = $_GET['filtered'];
+// Busca empresas por texto ("<tipo> em <cidade>") na Places API (New). Uma chamada devolve nome,
+// endereço, telefone, site e tipos. Devolve array( lugares, mensagem de erro ).
+function captar_busca( $key,$type,$location ) {
+
+	$ch = curl_init( "https://places.googleapis.com/v1/places:searchText" );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+	curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
+	curl_setopt( $ch, CURLOPT_POST, true );
+	curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
+		"Content-Type: application/json",
+		"X-Goog-Api-Key: ".$key,
+		"X-Goog-FieldMask: places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.types",
+	) );
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( array(
+		"textQuery" => trim( $type." em ".$location ),
+		"languageCode" => "pt-BR",
+		"regionCode" => "BR",
+		"pageSize" => 20,
+	) ) );
+	$resposta = curl_exec( $ch );
+	$erro = curl_error( $ch );
+	curl_close( $ch );
+
+	if( $resposta === false ) {
+		return array( array(),"Não foi possível falar com o Google: ".$erro );
+	}
+
+	$dados = json_decode( $resposta,true );
+
+	if( isset( $dados['error'] ) ) {
+		return array( array(),"O Google recusou a busca: ".( isset( $dados['error']['message'] ) ? $dados['error']['message'] : "erro desconhecido" ) );
+	}
+
+	return array( isset( $dados['places'] ) && is_array( $dados['places'] ) ? $dados['places'] : array(),"" );
+
+}
 ?>
 
 <div class="middle minfit bg-gray">
@@ -105,7 +138,7 @@ $filtered = $_GET['filtered'];
 									<?php if( $_GET['filtered'] ) { ?>
 									<div class="row">
 										<div class="col-md-12">
-										    <a href="<?php admin_url(); ?>/usuarios" class="limpafiltros"><i class="lni lni-close"></i> Limpar filtros</a>
+										    <a href="<?php admin_url(); ?>/captar" class="limpafiltros"><i class="lni lni-close"></i> Limpar filtros</a>
 										</div>
 									</div>
 									<?php } ?>
@@ -138,71 +171,37 @@ $filtered = $_GET['filtered'];
 
 					<?php if( $filtered == 1 ) { ?>
 
-						<?php
-						//Radar search google api url 
-						 $url="https://maps.googleapis.com/maps/api/place/radarsearch/json?location=".$lat.",".$lng."&radius=".$radius."&types=".$type."&key=".$key;
-						//$url="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$types." ".$location."&key=".$key;
-						
-						$url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=".$types." ".$location."&key='.$key'";
-						
-						
+						<?php if( !$key ) { ?>
 
-						//Php curl code
-						$ch = curl_init();
-						curl_setopt($ch, CURLOPT_URL, $url);
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-						curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-						$response = curl_exec($ch);
-						curl_close($ch);
+							<span>Configure a chave <strong>GOOGLE_PLACES_KEY</strong> no arquivo .env para usar a busca.</span>
 
-						$response = json_decode($response);
+						<?php } elseif( !$location && !$type ) { ?>
 
-						print_r( $response  );
+							<span>Informe a cidade e o tipo de empresa.</span>
 
-						$result = count($response->results);
-						if($result == 0){
-							echo "The API key has expired please enter a new key.";
-						} else {
+						<?php } else { ?>
 
-							// for($i=0;$i<$result;$i++){
+							<?php list( $lugares,$erro ) = captar_busca( $key,$type,$location ); ?>
 
-							for($i=0;$i<10;$i++){
+							<?php if( $erro ) { ?>
+								<span><?php echo htmlclean( $erro ); ?></span>
+							<?php } elseif( !$lugares ) { ?>
+								<span>Nenhuma empresa encontrada.</span>
+							<?php } ?>
 
-								$place_id_url="https://maps.googleapis.com/maps/api/place/details/json?placeid=".$response->results[$i]->place_id."&key=".$key;
-								//Php curl code
-								$ch = curl_init();
-								curl_setopt($ch, CURLOPT_URL, $place_id_url);
-								curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-								curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-								$response_detail = curl_exec($ch);
-								curl_close($ch);
-
-								$response_detail = json_decode($response_detail);
-
-								$name = $response_detail->result->name;
-								$address = $response_detail->result->formatted_address;
-								$phone = $response_detail->result->formatted_phone_number;
-								$lng = $response_detail->result->geometry->location->lng;
-								$lat = $response_detail->result->geometry->location->lat;
-								$place_id = $response_detail->result->place_id;
-								$user_ratings_total = $response_detail->result->rating;
-								$types = implode(",",$response_detail->result->types);
-								$website = $response_detail->result->website;
-						?>
-
-						<div class="col-md-4">
-
-							<div class="captar-local">
-								<span><?php echo $name; ?></span><br/>
-								<span><?php echo $address; ?></span><br/>
-								<span><?php echo $phone; ?></span><br/>
-								<span><?php echo $website; ?></span><br/>
-								<span><?php echo $types; ?></span>
+							<?php foreach( $lugares as $lugar ) { ?>
+							<div class="col-md-4">
+								<div class="captar-local">
+									<span><?php echo htmlclean( isset( $lugar['displayName']['text'] ) ? $lugar['displayName']['text'] : "" ); ?></span><br/>
+									<span><?php echo htmlclean( isset( $lugar['formattedAddress'] ) ? $lugar['formattedAddress'] : "" ); ?></span><br/>
+									<span><?php echo htmlclean( isset( $lugar['nationalPhoneNumber'] ) ? $lugar['nationalPhoneNumber'] : "" ); ?></span><br/>
+									<span><?php echo htmlclean( isset( $lugar['websiteUri'] ) ? $lugar['websiteUri'] : "" ); ?></span><br/>
+									<span><?php echo htmlclean( isset( $lugar['types'] ) ? implode( ", ",$lugar['types'] ) : "" ); ?></span>
+								</div>
 							</div>
+							<?php } ?>
 
-						</div>
-
-						<?php }} ?>
+						<?php } ?>
 
 					<?php } ?>
 

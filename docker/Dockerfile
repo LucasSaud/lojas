@@ -11,5 +11,6 @@ RUN apt-get update \
 COPY docker/php.ini /usr/local/etc/php/conf.d/app.ini
 COPY docker/apache.conf /etc/apache2/conf-enabled/app.conf
 COPY app/ /var/www/html/
+COPY scripts/ /var/www/scripts/
 
 RUN mkdir -p /var/www/html/_core/_uploads && chown -R www-data:www-data /var/www/html/_core/_uploads

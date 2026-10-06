@@ -1058,6 +1058,15 @@ function edit_estabelecimento( $accesstoken,$id,$nome,$descricao,$segmento,$esta
 		"excluded" => $excluded,
 	);
 
+	// Credenciais de pagamento: cifradas no banco. Campo vazio no formulário mantém a que já está gravada.
+	foreach( array( "accesstoken","pagamento_mercadopago_secret","pagamento_getnet_client_secret" ) as $coluna ) {
+		if( notnull( $campos[$coluna] ) ) {
+			$campos[$coluna] = segredo_cifra( stripslashes( $campos[$coluna] ) );
+		} else {
+			unset( $campos[$coluna] );
+		}
+	}
+
 	$set = array();
 	foreach( $campos as $coluna => $valor ) {
 		$set[] = $coluna." = '".$valor."'";

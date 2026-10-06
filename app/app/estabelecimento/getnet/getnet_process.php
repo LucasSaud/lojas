@@ -23,9 +23,6 @@ $contents = $_POST;
 
 // print_r(json_encode($contents));
 
-// $client_id      = "72d4ce9d-348a-4bea-9052-7d515332b21f";
-// $client_secret  = "d170206f-4001-417c-922a-60da6d2f65db";
-// $seller_id      = "c892fe42-2d75-43aa-8fa8-d248a0fa82ab";
 
 $client_id      = CLIENT_ID;
 $client_secret  = CLIENT_SECRET;

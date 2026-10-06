@@ -90,6 +90,11 @@ if( $manutencao ) {
 
 include("functions.php");
 
+// CSRF: todo POST precisa vir do próprio site.
+if( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+	origem_exige();
+}
+
 // Tokens
 
 

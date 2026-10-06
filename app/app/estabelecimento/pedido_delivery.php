@@ -1097,7 +1097,7 @@ include($virtualpath.'/_layout/modal.php');
 													  <option value="5">Outros</option>
 
 										<?php } ?>
-													  <?php if($data_content['accesstoken'] == '1') { ?>
+													  <?php if(segredo_abre( $data_content['accesstoken'] ) == '1') { ?>
 													    <optgroup label="Pague no app">
     													  <option value="99">Cartão Crédito, PIX, Lotérica ou Boleto</option>
     												    </optgroup>

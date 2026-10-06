@@ -27,6 +27,7 @@
 
     <?php system_header(); ?>
 
+  <?php acao_script(); ?>
   </head>
   <body>
 
