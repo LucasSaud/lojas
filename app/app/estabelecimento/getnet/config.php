@@ -22,14 +22,14 @@ if ($hasestabelecimento) {
     if($sandbox == 1){
 
         define("CLIENT_ID", $data_estabelecimento['pagamento_getnet_client_id']);
-        define("CLIENT_SECRET", $data_estabelecimento['pagamento_getnet_client_secret']);
+        define("CLIENT_SECRET", segredo_abre( $data_estabelecimento['pagamento_getnet_client_secret'] ));
         define("SELLER_ID", $data_estabelecimento['pagamento_getnet_seller_id']);
 
 
     }else{
 
         define("CLIENT_ID", $data_estabelecimento['pagamento_getnet_client_id']);
-        define("CLIENT_SECRET", $data_estabelecimento['pagamento_getnet_client_secret']);
+        define("CLIENT_SECRET", segredo_abre( $data_estabelecimento['pagamento_getnet_client_secret'] ));
         define("SELLER_ID", $data_estabelecimento['pagamento_getnet_seller_id']);
 
 

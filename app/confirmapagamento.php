@@ -27,7 +27,7 @@ if( !$data || !$data['accesstoken'] ) {
 }
 
 require_once('_core/_includes/functions/mercadopago/vendor/autoload.php');
-MercadoPago\SDK::setAccessToken( $data['accesstoken'] );
+MercadoPago\SDK::setAccessToken( segredo_abre( $data['accesstoken'] ) );
 $pagamento = MercadoPago\Payment::find_by_id( $data_id );
 
 if( !$pagamento || !$pagamento->external_reference ) {

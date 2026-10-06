@@ -145,22 +145,60 @@ function make_login( $email,$pass,$method,$keepalive ) {
 
 }
 
-// Token anti-CSRF da sessão: as páginas o enviam nas ações feitas por POST e o destino confere.
-function csrf_token() {
+// Proteção contra CSRF: todo POST precisa vir do próprio site. O navegador informa a origem da
+// página no cabeçalho Origin (ou Referer) e um site de terceiros não consegue falsificá-lo.
+// Chamada em config.php para qualquer POST.
+//   - A origem tem de ser exatamente o host da requisição. Subdomínios da plataforma não são
+//     confiáveis: cada loja publica HTML próprio no seu.
+//   - Exceção: login, cadastro e recuperação de senha aceitam POST vindo de um subdomínio da
+//     plataforma, porque esses formulários postam para o domínio principal.
+//   - Sem Origin nem Referer só passa quem não traz cookie de sessão (webhook de pagamento, cron).
+function origem_exige() {
 
-	if( empty( $_SESSION['csrf'] ) ) {
-		$_SESSION['csrf'] = bin2hex( random_bytes( 32 ) );
+	global $simple_url;
+
+	$origem = "";
+	if( !empty( $_SERVER['HTTP_ORIGIN'] ) ) {
+		$origem = $_SERVER['HTTP_ORIGIN'];
+	} elseif( !empty( $_SERVER['HTTP_REFERER'] ) ) {
+		$origem = $_SERVER['HTTP_REFERER'];
 	}
 
-	return $_SESSION['csrf'];
+	if( $origem === "" ) {
+		$confiavel = empty( $_COOKIE[session_name()] );
+	} else {
+
+		$partes = parse_url( $origem );
+		$host = isset( $partes['host'] ) ? strtolower( $partes['host'] ) : "";
+		if( isset( $partes['port'] ) ) {
+			$host .= ":".$partes['port'];
+		}
+
+		$atual = strtolower( isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : "" );
+		$dominio = strtolower( $simple_url );
+		$script = isset( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['SCRIPT_NAME'] : "";
+
+		$confiavel = $host !== "" && $host === $atual;
+
+		if( !$confiavel && preg_match( "#^/(login|comece|esqueci|novasenha)/#",$script ) ) {
+			$confiavel = $host === $dominio || substr( $host,-strlen( ".".$dominio ) ) === ".".$dominio;
+		}
+
+	}
+
+	if( !$confiavel ) {
+		http_response_code( 403 );
+		echo "Requisição recusada: origem não reconhecida.";
+		exit;
+	}
 
 }
 
-// Para páginas que alteram dados ao serem abertas (excluir, ativar, bloquear...):
-// sem o token da sessão na URL ou no formulário, a página para aqui.
+// Páginas que alteram dados ao serem chamadas (excluir, ativar, bloquear...) só aceitam POST.
+// A origem do POST já foi conferida por origem_exige().
 function csrf_exige() {
 
-	if( !csrf_confere( isset( $_REQUEST['csrf'] ) ? $_REQUEST['csrf'] : null ) ) {
+	if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 		http_response_code( 403 );
 		echo "Ação não autorizada. Volte à página anterior e tente novamente.";
 		exit;
@@ -168,9 +206,12 @@ function csrf_exige() {
 
 }
 
-function csrf_confere( $token ) {
+// Vai no <head> das áreas logadas: define acaoPost( url ), que envia a ação por POST
+// (usada pelos botões de excluir, ativar etc.).
+function acao_script() {
 
-	return !empty( $_SESSION['csrf'] ) && is_string( $token ) && hash_equals( $_SESSION['csrf'],$token );
+	echo '<script>function acaoPost(url){var f=document.createElement("form");f.method="post";f.action=url;'
+		.'document.body.appendChild(f);f.submit();}</script>'."\n";
 
 }
 

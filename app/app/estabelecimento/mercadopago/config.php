@@ -21,12 +21,12 @@ if ($hasestabelecimento) {
     if($sandbox == 1){
 
         define("PUBLIC_MERCADOPAGO", $data_estabelecimento['pagamento_mercadopago_public']);
-        define("SECRET_MERCADOPAGO", $data_estabelecimento['pagamento_mercadopago_secret']);
+        define("SECRET_MERCADOPAGO", segredo_abre( $data_estabelecimento['pagamento_mercadopago_secret'] ));
 
     }else{
 
         define("PUBLIC_MERCADOPAGO", $data_estabelecimento['pagamento_mercadopago_public']);
-        define("SECRET_MERCADOPAGO", $data_estabelecimento['pagamento_mercadopago_secret']);
+        define("SECRET_MERCADOPAGO", segredo_abre( $data_estabelecimento['pagamento_mercadopago_secret'] ));
 
     }
 

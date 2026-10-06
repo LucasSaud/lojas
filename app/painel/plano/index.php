@@ -168,7 +168,7 @@ $eid = $_SESSION['estabelecimento']['id'];
 
 													<tr class="fullwidth">
 														<td>
-															<a class="color-red cancelar-compra" onclick="if(confirm('Tem certeza que cancelar essa compra?')) document.location = '<?php panel_url(); ?>/plano/?acao=remover&csrf=<?php echo csrf_token(); ?>&id=<?php echo $data_pendentes['id']; ?>'" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
+															<a class="color-red cancelar-compra" onclick="if(confirm('Tem certeza que cancelar essa compra?')) acaoPost('<?php panel_url(); ?>/plano/?acao=remover&id=<?php echo $data_pendentes['id']; ?>')" href="#" title="Excluir"><i class="lni lni-trash"></i></a>
 														</td>
 														<td>
 						                                    <div class="fake-table-data fake-table-data-zero"><span class="pendente-title">Assinatura #<?php echo $data_pendentes['id']; ?></span></div>

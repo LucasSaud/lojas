@@ -1903,7 +1903,7 @@ global $simple_url;
                   <div class="col-md-12">
                     <div class="form-field-default">
                         <label>Access token mercado pago(receba online):</label>
-                        <input type="text" name="accesstoken" placeholder="Access token mercado pago(receba online)" value="<?php echo htmlclean( $dataestabelecimento['accesstoken'] ); ?>">
+                        <input type="text" name="accesstoken" value="" autocomplete="off" placeholder="<?php echo notnull( $dataestabelecimento['accesstoken'] ) ? 'Preenchido – digite para trocar' : 'Não preenchido'; ?>">
                     </div>
                   </div>
 
@@ -2039,7 +2039,7 @@ global $simple_url;
 
                                         <label>Acess Token:</label>
 
-                                        <input type="text" name="pagamento_mercadopago_secret"  value="<?php echo htmlclean($dataestabelecimento['pagamento_mercadopago_secret'] ); ?>">
+                                        <input type="text" name="pagamento_mercadopago_secret" value="" autocomplete="off" placeholder="<?php echo notnull( $dataestabelecimento['pagamento_mercadopago_secret'] ) ? 'Preenchido – digite para trocar' : 'Não preenchido'; ?>">
 
                                     </div>
 
@@ -2118,7 +2118,7 @@ global $simple_url;
                                         <input type="text" name="pagamento_getnet_client_id" value="<?php echo htmlclean($dataestabelecimento['pagamento_getnet_client_id'] ); ?>">
 
                                         <label>Client Secret:</label>
-                                        <input type="text" name="pagamento_getnet_client_secret"  value="<?php echo htmlclean($dataestabelecimento['pagamento_getnet_client_secret'] ); ?>">
+                                        <input type="text" name="pagamento_getnet_client_secret" value="" autocomplete="off" placeholder="<?php echo notnull( $dataestabelecimento['pagamento_getnet_client_secret'] ) ? 'Preenchido – digite para trocar' : 'Não preenchido'; ?>">
 
                                         <label>Seller ID:</label>
                                         <input type="text" name="pagamento_getnet_seller_id"  value="<?php echo htmlclean($dataestabelecimento['pagamento_getnet_seller_id'] ); ?>">

@@ -418,7 +418,7 @@ $(".funcionamento").click(function() {
 	
 	$( this ).html("<div class='atualizando'><i class='lni lni-reload rotating'></i></div>");
 	setTimeout(() => { 
-		$( this ).load("<?php panel_url(); ?>/_ajax/funcionamento.php?eid=<?php echo $_SESSION['estabelecimento']['id']; ?>&csrf=<?php echo csrf_token(); ?>");
+		$( this ).load("<?php panel_url(); ?>/_ajax/funcionamento.php?eid=<?php echo $_SESSION['estabelecimento']['id']; ?>", {});
     }, 400);
 
 });

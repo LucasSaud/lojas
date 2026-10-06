@@ -186,7 +186,7 @@ include($virtualpath.'/_layout/modal.php');
 								    
 								    if($qrCode == ''){
     
-    								    $accessToken     = data_info('estabelecimentos',$app['id'],'accesstoken');
+    								    $accessToken     = segredo_abre( data_info('estabelecimentos',$app['id'],'accesstoken') );
     								    
     								    //echo $accessToken;
     								    

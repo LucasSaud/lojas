@@ -835,7 +835,7 @@ function watchadd() {
 
 function kill_image(fileid) {
 
-    $.post("<?php just_url(); ?>/_core/_ajax/delete_image.php", { fileid: fileid, csrf: "<?php echo csrf_token(); ?>" });
+    $.post("<?php just_url(); ?>/_core/_ajax/delete_image.php", { fileid: fileid });
 
     watchadd();
 
