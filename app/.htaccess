@@ -1,5 +1,9 @@
 RewriteEngine On
 RewriteBase /
+# conheca.APP_DOMAIN -> página institucional em /conheca/
+RewriteCond %{HTTP_HOST} ^conheca\. [NC]
+RewriteCond %{REQUEST_URI} !^/conheca/
+RewriteRule (.*) conheca/$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 # <loja>.APP_DOMAIN -> index.php?insubdominio=<loja>

@@ -36,7 +36,6 @@ if( $inacao && ($inacao == "estabelecimentos" OR $inacao == "produtos" ) ) {
 
 					<div class="mini-links pull-right">
 						<a target="_blank" href="https://conheca.<?php echo $simple_url; ?>"><i class="lni lni-heart"></i> Conheça</a>
-						<a target="_blank" href="https://api.whatsapp.com/send?phone=5511982889012&text=Olá, preciso de ajuda!"><i class="lni lni-headphone-alt"></i> Fale conosco</a>
 						<a target="_blank" href="<?php echo $justurl; ?>/login"><i class="lni lni-lock"></i> Painel</a>
 					</div>
 

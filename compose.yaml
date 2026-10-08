@@ -5,7 +5,8 @@ services:
       dockerfile: docker/Dockerfile
     env_file: .env
     ports:
-      - "8080:80"
+      # Em produção, atrás do proxy: WEB_PORT=127.0.0.1:8080 no .env (não expõe a porta para fora).
+      - "${WEB_PORT:-8080}:80"
     volumes:
       - ./storage/uploads:/var/www/html/_core/_uploads
     depends_on:

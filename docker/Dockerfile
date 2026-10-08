@@ -1,7 +1,9 @@
 # PHP 7.4 + Apache. O sistema ainda não foi validado em PHP 8.
 FROM php:7.4-apache
 
-RUN apt-get update \
+# A base da imagem (Debian 11) saiu de linha: os pacotes agora estão em archive.debian.org.
+RUN sed -i 's/deb.debian.org/archive.debian.org/' /etc/apt/sources.list \
+ && apt-get update \
  && apt-get install -y --no-install-recommends libpng-dev libjpeg62-turbo-dev libfreetype6-dev libwebp-dev \
  && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
  && docker-php-ext-install -j"$(nproc)" mysqli gd \

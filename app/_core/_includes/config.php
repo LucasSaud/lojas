@@ -45,18 +45,18 @@ $comissao_afiliados = "10";
 
 // Title
 
-$seo_title = "Rei do Script";
+$seo_title = "WorldShop";
 $seo_description = "Compre sem sair de casa!";
-//$titulo_topo = "Velox Imports<strong>.</strong>"; //TITULO DA LOGO PARA USAR TITULO INVES DE IMAGEM TIRAR OS // DO COMEÇO E COLOCAR NO DE BAIXO 
+//$titulo_topo = "WorldShop<strong>.</strong>"; //TITULO DA LOGO PARA USAR TITULO INVES DE IMAGEM TIRAR OS // DO COMEÇO E COLOCAR NO DE BAIXO 
 $titulo_topo = '<img src="/_core/_cdn/img/logo.png">'; //US4R LOGO INVES DE TITUL5
-$titulo_rodape ="Rei do Script";
+$titulo_rodape ="WorldShop";
 $sub_titulo_rodape ="O CATÁLOGO VIRTUAL DESCOMPLICADO!"; //Endereço ou Slogan
-$titulo_rodape_marketplace ="Rei do Script, Compre sem sair de casa!"; //Endereço ou Slogan
+$titulo_rodape_marketplace ="WorldShop, Compre sem sair de casa!"; //Endereço ou Slogan
 
 
 // Redes/Whatsapp/Email
-$whatsapp = "11982889012";
-$usrtelefone = "11982889012";
+$whatsapp = "";
+$usrtelefone = "";
 $email ="#";
 $youtube ="#";
 $instagram="#";

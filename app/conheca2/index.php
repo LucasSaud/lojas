@@ -14,7 +14,7 @@ $site = $proto.$dominio;
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <title>Velox Imports - Catálogo e Cardápio de Produtos</title>
+        <title>WorldShop - Catálogo e Cardápio de Produtos</title>
         
         <meta name=description content="Crie seu catálogo ou cardápio online de produtos com pedidos via WhatsApp." />
 	
@@ -28,7 +28,7 @@ $site = $proto.$dominio;
     	
     	<meta name=rating content=General />
     	
-    	<meta name=author content="Velox Imports - Catálogo ou Cardápio Online de Produtos" />
+    	<meta name=author content="WorldShop - Catálogo ou Cardápio Online de Produtos" />
     	
     	<meta name=language content=pt-br />
     	
@@ -44,7 +44,7 @@ $site = $proto.$dominio;
     	
     	<meta name=googlebot content=all />
     	
-    	<meta name=copyright content="Velox Imports - Catálogo ou Cardápio Online de Produtos" />
+    	<meta name=copyright content="WorldShop - Catálogo ou Cardápio Online de Produtos" />
     	
     	<meta name=url content="<?php echo $site; ?>" />
     	
@@ -56,9 +56,9 @@ $site = $proto.$dominio;
         
     	<meta property="og:type" content="website" />
     	
-    	<meta property="og:title" content="Velox Imports - Catálogo ou Cardápio Online de Produtos" />
+    	<meta property="og:title" content="WorldShop - Catálogo ou Cardápio Online de Produtos" />
     	
-    	<meta property="og:description" content="Crie seu catálogo ou cardápio online de produtos com pedidos via WhatsApp. Velox Imports!" />
+    	<meta property="og:description" content="Crie seu catálogo ou cardápio online de produtos com pedidos via WhatsApp. WorldShop!" />
     	
     	<meta property="og:image" content="<?php echo $site; ?>/conheca2/img/favicon.png" />
     	

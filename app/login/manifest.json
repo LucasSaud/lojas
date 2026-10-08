@@ -1,17 +1,17 @@
 {
-  "name": "reidoscript! Admin",
-  "short_name": "reidoscript! Admin",
+  "name": "WorldShop Admin",
+  "short_name": "WorldShop Admin",
   "theme_color": "#261C43",
   "background_color": "#261C43",
   "display": "fullscreen",
-  "Scope": "https://reidoscript.com/login/index.php",
-  "start_url": "https://reidoscript.com/login/index.php",
+  "scope": "/login/",
+  "start_url": "/login/",
   "icons": [
     {
-      "src": "https://reidoscript.com/login/img/258x258.png",
-      "sizes": "1080x1080",
+      "src": "/login/img/258x258.png",
+      "sizes": "258x258",
       "type": "image/png"
-    } 
+    }
   ],
   "splash_pages": null
 }
